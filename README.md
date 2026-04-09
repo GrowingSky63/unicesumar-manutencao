@@ -37,6 +37,11 @@ As atividades oficiais da disciplina estão em:
 1. [Atividade 1 - Análise de Código e Manutenção Preventiva](library-maintenance-lab/ATIVIDADE_1.md)
 2. [Atividade 2 - Manutenção Corretiva e Evolutiva](library-maintenance-lab/ATIVIDADE_2.md)
 
+## Lista de Exercícios de fixação para Prova 1
+
+- [Lista de exercícios](LISTA_PROVA1.md)
+- [Gabarito da lista](GABARITO_LISTA_PROVA1.md)
+
 ## Materiais Complementares
 
 - [Projeto da biblioteca (contexto e execução)](library-maintenance-lab/README.md)
