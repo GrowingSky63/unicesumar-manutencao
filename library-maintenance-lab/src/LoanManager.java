@@ -189,6 +189,33 @@ public class LoanManager {
         }
     }
 
+    public void listLoanHistoryByUser(int userId) {
+        Map<String, Object> user = LegacyDatabase.getUserById(userId);
+        if (user == null) {
+            System.out.println("User not found: " + userId);
+            return;
+        }
+        System.out.println("Loan history for user: " + user.get("name") + " (ID " + userId + ")");
+        System.out.println("ID | BOOK | TITLE | BORROW | DUE | RETURNED | STATUS | FINE");
+        List<Map<String, Object>> list = LegacyDatabase.getLoans();
+        int count = 0;
+        double totalFines = 0.0;
+        for (Map<String, Object> item : list) {
+            if (((Integer) item.get("userId")).intValue() == userId) {
+                int bookId = ((Integer) item.get("bookId")).intValue();
+                Map<String, Object> book = LegacyDatabase.getBookById(bookId);
+                String bookTitle = book != null ? String.valueOf(book.get("title")) : "unknown";
+                System.out.println(item.get("id") + " | " + bookId + " | " + bookTitle + " | "
+                        + item.get("borrowDate") + " | " + item.get("dueDate") + " | " + item.get("returnedDate") + " | "
+                        + item.get("status") + " | " + item.get("fine"));
+                count++;
+                totalFines += ((Double) item.get("fine")).doubleValue();
+            }
+        }
+        System.out.println("Total loans: " + count + " | Total fines: " + totalFines);
+        LegacyDatabase.addLog("loan-history-" + userId);
+    }
+
     public void borrowFromConsole() {
         int userId = DataUtil.askInt("User ID: ", -1);
         int bookId = DataUtil.askInt("Book ID: ", -1);
